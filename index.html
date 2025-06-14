@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>یادبود استاد تجن جاری - آکادمی Aiolearn</title>
+<style>
+  /* Reset & basics */
+  * {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+  body {
+    font-family: 'Tahoma', 'Segoe UI', sans-serif;
+    background: #121212;
+    color: #eee;
+    line-height: 1.7;
+    scroll-behavior: smooth;
+    direction: rtl;
+  }
+  a {
+    color: #e63946;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  a:hover {
+    color: #f1c40f;
+  }
+
+  /* Navbar */
+  nav {
+    background: #1f1f1f;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.7);
+  }
+  nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 10px 0;
+  }
+  nav ul li {
+    margin: 0 20px;
+  }
+  nav ul li a {
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+  nav ul li a:hover,
+  nav ul li a.active {
+    background: #e63946;
+    color: #fff;
+  }
+
+  /* Header */
+  header {
+    text-align: center;
+    padding: 80px 20px 50px 20px;
+    background: linear-gradient(135deg, #2f2f2f, #121212);
+    box-shadow: inset 0 0 80px rgba(230, 57, 70, 0.7);
+  }
+  header h1 {
+    font-size: 3.8rem;
+    margin-bottom: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #e63946;
+    text-shadow: 2px 2px 7px rgba(179, 43, 54, 0.9);
+  }
+  header h3 {
+    font-weight: 400;
+    font-size: 1.5rem;
+    color: #bbb;
+    font-style: italic;
+  }
+
+  /* Ribbon */
+  .ribbon {
+    width: 120px;
+    height: 140px;
+    background: #e63946;
+    margin: 20px auto 40px auto;
+    clip-path: polygon(0 0, 100% 0, 100% 70%, 50% 100%, 0 70%);
+    box-shadow: 0 0 20px 5px rgba(230, 57, 70, 0.7);
+    animation: flicker 2s infinite alternate;
+    position: relative;
+  }
+  .ribbon::before,
+  .ribbon::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 40px;
+    height: 90px;
+    background: #b32b36;
+  }
+  .ribbon::before {
+    left: -40px;
+    clip-path: polygon(100% 0, 0 0, 0 100%);
+    border-radius: 0 5px 5px 0;
+    box-shadow: inset 4px 0 8px rgba(255,255,255,0.15);
+  }
+  .ribbon::after {
+    right: -40px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+    border-radius: 5px 0 0 5px;
+    box-shadow: inset -4px 0 8px rgba(255,255,255,0.15);
+  }
+  @keyframes flicker {
+    0%, 100% { box-shadow: 0 0 20px 5px rgba(230, 57, 70, 0.7); }
+    50% { box-shadow: 0 0 30px 9px rgba(230, 57, 70, 1); }
+  }
+
+  /* Sections */
+  section {
+    max-width: 900px;
+    margin: 50px auto;
+    background: rgba(40,40,40,0.9);
+    border-radius: 12px;
+    padding: 40px 50px;
+    box-shadow: 0 0 30px rgba(230, 57, 70, 0.4);
+    animation: fadeInUp 1s ease forwards;
+    opacity: 0;
+  }
+  section.active {
+    opacity: 1;
+  }
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  section h2 {
+    color: #e63946;
+    font-size: 2.5rem;
+    margin-bottom: 25px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  /* About section */
+  #about p {
+    font-size: 1.4rem;
+    color: #ddd;
+    line-height: 1.8;
+    text-align: justify;
+  }
+
+  /* Lessons section */
+  #lessons ul {
+    list-style: inside disc;
+    font-size: 1.3rem;
+    color: #eee;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  #lessons ul li {
+    margin-bottom: 12px;
+  }
+
+  /* Tribute section */
+  #tribute p {
+    font-size: 1.4rem;
+    color: #f0e6e6;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  #tribute p.highlight {
+    color: #e63946;
+    font-weight: 700;
+    font-size: 1.7rem;
+  }
+  #tribute .date {
+    font-style: italic;
+    color: #bbb;
+    margin-top: 30px;
+    letter-spacing: 0.07em;
+  }
+
+  /* Gallery */
+  #gallery {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  #gallery img {
+    max-width: 150px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px #e63946;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+  }
+  #gallery img:hover {
+    transform: scale(1.1);
+  }
+
+  /* Guestbook */
+  #guestbook form {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: right;
+  }
+  #guestbook label {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+    color: #ddd;
+  }
+  #guestbook input[type="text"],
+  #guestbook textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    margin-bottom: 15px;
+    resize: vertical;
+    font-size: 1rem;
+  }
+  #guestbook button {
+    background: #e63946;
+    color: white;
+    border: none;
+    padding: 14px 25px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  #guestbook button:hover {
+    background: #f1c40f;
+    color: #121212;
+  }
+  #guestbook .messages {
+    max-width: 600px;
+    margin: 20px auto 0 auto;
+    background: #222;
+    border-radius: 8px;
+    padding: 20px;
+    max-height: 200px;
+    overflow-y: auto;
+    color: #eee;
+    font-size: 1rem;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 20px 10px;
+    background: #1f1f1f;
+    color: #999;
+    font-size: 1rem;
+    letter-spacing: 0.07em;
+    border-top: 1px solid #333;
+  }
+
+  /* Dark mode toggle */
+  .dark-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: #e63946;
+    border-radius: 20px;
+    width: 45px;
+    height: 25px;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(230,57,70,0.8);
+  }
+  .dark-toggle::before {
+    content: "";
+    position: absolute;
+    width: 21px;
+    height: 21px;
+    border-radius: 50%;
+    background: #fff;
+    top: 2px;
+    left: 3px;
+    transition: 0.3s ease;
+  }
+  body.dark .dark-toggle::before {
+    transform: translateX(20px);
+    background: #121212;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav ul {
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    nav ul li {
+      margin: 8px 10px;
+    }
+    header h1 {
+      font-size: 2.5rem;
+    }
+    section {
+      padding: 30px 20px;
+      margin: 30px 10px;
+    }
+    #gallery img {
+      max-width: 100px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- Dark mode toggle -->
+<div class="dark-toggle" id="darkToggle" title="تغییر حالت شبانه"></div>
+
+<nav>
+  <ul>
+    <li><a href="#about" class="active">درباره استاد</a></li>
+    <li><a href="#lessons">درس‌ها</a></li>
+    <li><a href="#tribute">یادبود</a></li>
+
+    <li><a href="#guestbook">دفتر یادبود</a></li>
+    <li><a href="#contact">تماس</a></li>
+  </ul>
+</nav>
+
+<header>
+  <div class="ribbon"></div>
+  <h1>یادبود استاد تجن جاری</h1>
+  <h3>استاد عزیز HTML من در آکادمی Aiolearn، استاد همه زبان‌های برنامه‌نویسی</h3>
+</header>
+
+<section id="about">
+  <h2>درباره استاد</h2>
+  <p>استاد تجن جاری، که دیروز در حمله وحشیانه اسرائیل به ایران به شهادت رسید، معلمی بود که همه زبان‌های برنامه‌نویسی را به صورت کامل تدریس می‌کرد. او در آکادمی Aiolearn با عشق و تعهد بی‌نظیر خود، نسل‌های زیادی را به سوی دانش و موفقیت هدایت کرد.</p>
+</section>
+
+<section id="lessons">
+  <h2>درس‌ها و مهارت‌ها</h2>
+  <ul>
+    <li>HTML, CSS, JavaScript — فرانت‌اند مثل آب خوردن</li>
+    <li>Backend با PHP, Node.js, Python و بیشتر</li>
+    <li>پایگاه داده‌ها: MySQL, MongoDB و غیره</li>
+    <li>آموزش مفاهیم کامپیوتر و ساخت اپلیکیشن</li>
+    <li>برنامه‌نویسی شی‌گرا و معماری نرم‌افزار</li>
+    <li>و کلی چیزهای دیگه که استاد به بهترین شکل آموزش می‌داد</li>
+  </ul>
+</section>
+
+<section id="tribute">
+  <h2>یادبود و احترام</h2>
+  <p>استاد تجن جاری دیروز در حمله وحشیانه اسرائیل به ایران به شهادت رسید.</p>
+  <p class="highlight">او همه زبان‌های برنامه‌نویسی را آموزش داد — فرانت‌اند، بک‌اند، همه‌چیز — مثل یک افسانه واقعی.</p>
+  <p>قربانی‌اش شعله مقاومت را در دل ما برافروخت.</p>
+  <p>روحش در آرامش ابدی باشد و میراثش الهام‌بخش نسل‌های آینده.</p>
+  <p class="date">— خرداد ۱۴۰۴</p>
+</section>
+
+
+
+<section id="guestbook">
+  <h2>دفتر یادبود</h2>
+  <form id="guestForm">
+    <label for="name">نام شما:</label>
+    <input type="text" id="name" name="name" placeholder="نام خود را وارد کنید" required />
+    <label for="message">پیام شما:</label>
+    <textarea id="message" name="message" rows="4" placeholder="پیام خود را بنویسید..." required></textarea>
+    <button type="submit">ثبت پیام</button>
+  </form>
+  <div class="messages" id="messages"></div>
+</section>
+
+<section id="contact">
+  <h2>تماس با  Aiolearn</h2>
+    <li>اینستاگرام: <a href="https://instagram.com/aiolearn" target="_blank">@aiolearn</a></li>
+  </ul>
+</section>
+
+<footer>
+  «شجاعان هرگز نمی‌میرند؛ میراثشان جاودانه است.» - یادبود استاد تجن جاری
+</footer>
+
+<script>
+  // Dark mode toggle
+  const toggle = document.getElementById('darkToggle');
+  toggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark');
+  });
+
+  // Smooth scroll & active nav link
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('nav ul li a');
+
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop - 80;
+      if (pageYOffset >= sectionTop) {
+        current = section.getAttribute('id');
+      }
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // Guestbook message handler (localStorage)
+  const form = document.getElementById('guestForm');
+  const messagesDiv = document.getElementById('messages');
+
+  function loadMessages() {
+    const saved = JSON.parse(localStorage.getItem('guestMessages')) || [];
+    messagesDiv.innerHTML = '';
+    saved.forEach(({name, message}) => {
+      const msgElem = document.createElement('p');
+      msgElem.textContent = `${name}: ${message}`;
+      messagesDiv.appendChild(msgElem);
+    });
+  }
+  loadMessages();
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = form.name.value.trim();
+    const message = form.message.value.trim();
+    if (!name || !message) return;
+    const saved = JSON.parse(localStorage.getItem('guestMessages')) || [];
+    saved.push({name, message});
+    localStorage.setItem('guestMessages', JSON.stringify(saved));
+    form.reset();
+    loadMessages();
+  });
+</script>
+
+</body>
+</html>
